@@ -97,14 +97,21 @@ export default function App() {
   }, [isDarkMode]);
 
   const handleGenerate = async () => {
+    const password = prompt("Veuillez entrer le mot de passe administrateur (CRON_SECRET) :");
+    if (!password) return;
+
     setIsGenerating(true);
     setErrorMsg(null);
     try {
-      const res = await fetch('/api/cron');
+      const res = await fetch('/api/cron', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${password}`
+        }
+      });
       const data = await res.json();
       
       if (res.ok && data.success) {
-        // If the API returns the articles directly, use them
         if (data.articles) {
           setArticles(data.articles);
         } else {
