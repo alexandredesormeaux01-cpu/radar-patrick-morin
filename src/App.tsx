@@ -27,7 +27,10 @@ export default function App() {
   const [currentDate, setCurrentDate] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('pm_radar_theme');
+    return saved ? saved === 'dark' : true;
+  });
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -91,8 +94,10 @@ export default function App() {
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
+      localStorage.setItem('pm_radar_theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
+      localStorage.setItem('pm_radar_theme', 'light');
     }
   }, [isDarkMode]);
 
