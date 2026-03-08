@@ -33,7 +33,7 @@ export default async function handler(req: any, res: any) {
     - sources: Tableau de 1 à 2 sources réelles avec URL directes vers les articles trouvés.`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-3.1-pro-preview',
+      model: 'gemini-3-flash-preview',
       contents: prompt,
       config: {
         tools: [{ googleSearch: {} }],
